@@ -7,7 +7,7 @@ class Player:
         self.username = username
         self.email = email
         self.password = password
-        self.wallet = Wallet(100.00)
+        self.wallet = Wallet()
         self.logged_in = False
 
     def login(self, username, password):

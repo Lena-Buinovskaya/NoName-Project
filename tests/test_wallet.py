@@ -7,11 +7,15 @@ from src.wallet import Wallet
 def wallet():
     return Wallet()
 
+
+@pytest.mark.regress
 def test_new_wallet_balance(wallet):
     assert wallet.balance == 0
 
+
+@pytest.mark.regress
 @pytest.mark.parametrize('amount, expected_balance, expected_exception', [
-    (100, 100, None),
+    pytest.param(100, 100, None, marks=pytest.mark.smoke),
     (50.34, 50.34, None),
     (0, None, ValueError),
     (-5, None, ValueError)
@@ -21,11 +25,13 @@ def test_wallet_debit(wallet, amount, expected_balance, expected_exception):
         with pytest.raises(expected_exception):
             wallet.debit(amount)
     else:
-        assert wallet.debit(amount) == expected_balance
+        wallet.debit(amount)
+        assert wallet.balance == expected_balance
 
 
+@pytest.mark.regress
 @pytest.mark.parametrize('amount, expected_balance, expected_exception', [
-    (50, 50, None),
+    pytest.param(50, 50, None, marks=pytest.mark.smoke),
     (50.34, 49.66, None),
     (0, None, ValueError),
     (-5, None, ValueError),
@@ -37,4 +43,5 @@ def test_wallet_credit(wallet, amount, expected_balance, expected_exception):
         with pytest.raises(expected_exception):
             wallet.credit(amount)
     else:
-        assert wallet.credit(amount) == expected_balance
+        wallet.credit(amount)
+        assert wallet.balance == expected_balance

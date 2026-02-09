@@ -1,5 +1,5 @@
-from exceptions import NotLoggedInError, IncorrectPasswordError
-from wallet import Wallet
+from src.exceptions import NotLoggedInError, IncorrectPasswordError
+from src.wallet import Wallet
 
 
 class Player:
@@ -12,7 +12,9 @@ class Player:
 
     def login(self, username, password):
         if not username or not password:
-            raise IncorrectPasswordError('Incorrect username or password')
+            raise ValueError('Fields cannot be empty')
+        if password != self.password:
+            raise IncorrectPasswordError('Incorrect password')
         self.logged_in = True
 
     def logout(self):

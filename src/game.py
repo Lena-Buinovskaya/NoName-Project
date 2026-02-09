@@ -1,5 +1,5 @@
 import random
-from exceptions import NotLoggedInError, InsufficientFundsError
+from src.exceptions import NotLoggedInError, InsufficientFundsError
 
 
 class Game:
@@ -11,7 +11,9 @@ class Game:
         if not player.logged_in:
             raise NotLoggedInError("Player must be logged in to play")
         if bet_amount <= 0:
-            raise InsufficientFundsError("Bet amount must be greater than 0")
+            raise ValueError("Bet amount must be greater than 0")
+        if bet_amount > player.wallet.balance:
+            raise InsufficientFundsError("You don't have enough funds")
 
         player.wallet.credit(bet_amount)
 

@@ -1,4 +1,4 @@
-from exceptions import InsufficientFundsError
+from src.exceptions import InsufficientFundsError
 
 class Wallet:
     def __init__(self, balance=0):

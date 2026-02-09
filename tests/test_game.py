@@ -1,5 +1,5 @@
-import pytest
 import random
+import pytest
 from src.exceptions import NotLoggedInError, InsufficientFundsError
 
 

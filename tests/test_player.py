@@ -9,18 +9,18 @@ def test_player_not_logged_in(player):
 
 @pytest.mark.regress
 @pytest.mark.parametrize('username,password,expected_result,expected_exception', [
-    pytest.param('test_user', '12345', True, None, marks=pytest.mark.smoke),
-    ('test_user', '', None, ValueError),
+    pytest.param('emilys', 'emilyspass', True, None, marks=pytest.mark.smoke),
+    ('emilys', '', None, ValueError),
     ('', '12345', None, ValueError),
     ('', '', None, ValueError),
-    ('test_user', '123', None, IncorrectPasswordError),
+    ('emilys', '123', None, IncorrectPasswordError),
 ])
 def test_player_logged_in(player, username, password, expected_result, expected_exception):
     if expected_exception:
         with pytest.raises(expected_exception):
             player.login(username, password)
     else:
-        player.login('test_user', '12345')
+        player.login('emilys', 'emilyspass')
         assert player.logged_in is expected_result
 
 
